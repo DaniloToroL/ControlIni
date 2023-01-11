@@ -31,6 +31,7 @@ global MOD_CONTROLL_INI #pylint: disable=global-at-module-level
 
 
 
+
 GetParams = GetParams #pylint: disable=undefined-variable,self-assigning-variable
 SetVar = SetVar #pylint: disable=undefined-variable,self-assigning-variable
 PrintException = PrintException #pylint: disable=undefined-variable,self-assigning-variable
