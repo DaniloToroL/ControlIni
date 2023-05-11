@@ -23,6 +23,7 @@ Para instalar librerias se debe ingresar por terminal a la carpeta "libs"
 
 """
 import configparser
+import traceback
 
 global MOD_CONTROLL_INI #pylint: disable=global-at-module-level
 # global config
@@ -44,9 +45,7 @@ except NameError:
 
 module = GetParams("module")
 
-"""
-    Resuelvo catpcha tipo reCaptchav2
-"""
+
 if module == "leerIni":
     # Modulo Leer ini
     ruta = GetParams('content')
@@ -54,7 +53,9 @@ if module == "leerIni":
     try:
         MOD_CONTROLL_INI["ruta"] = ruta
         MOD_CONTROLL_INI["config"] = configparser.ConfigParser()
+        MOD_CONTROLL_INI["config"].optionxform = str
         MOD_CONTROLL_INI["config"].read(ruta)
+        
         SetVar(variable, True)
     except Exception as e:
         PrintException()
@@ -66,10 +67,38 @@ if module == "obtenerDato":
     seccion = GetParams('idseccion')
     dato = GetParams('iddato')
     var = GetParams('idvar')
+    try:
+        config = MOD_CONTROLL_INI["config"]
+        secciones = config.sections()
+        print("Secciones: ", secciones)
+        obtenido = config[seccion][dato]
+        try:
+            result = obtenido.encode('iso-8859-1').decode('utf-8')
+        except:
+            result = obtenido
+        SetVar(var, result)
+        
+    except Exception as e:
+        traceback.print_exc()
+        PrintException()
+        SetVar(var, False)
+        raise e
+    
+if module == "obtenerTodosDatos":
+    seccion = GetParams('idseccion')
+    var = GetParams('idvar')
 
-    config = MOD_CONTROLL_INI["config"]
-    obtenido = config[seccion][dato]
-    SetVar(var, obtenido)
+    try:
+        config = MOD_CONTROLL_INI["config"]
+        secciones = config.sections()
+        print("Secciones: ", secciones)
+        seccion_items = config.items(seccion)
+        seccion_dict = dict(seccion_items)
+        SetVar(var, seccion_dict)
+    except:
+        PrintException()
+        SetVar(var, False)
+        raise Exception(f"Error al obtener todos los datos de la seccion {seccion}")
 
 if module == "anadirDato":
     # Modulo Añadir dato
@@ -104,10 +133,19 @@ if module == "modificaDato":
     seccion = GetParams('idseccion')
     dato = GetParams('iddato')
     contenido = GetParams('idcontent')
+    try:
+        config = MOD_CONTROLL_INI["config"]
+        ruta = MOD_CONTROLL_INI["ruta"]
 
-    config.set(seccion, dato, contenido)
-    with open(ruta, 'w', encoding='latin-1') as configfile:
-        config.write(configfile)
+        config.set(seccion, dato, contenido)
+
+        with open(ruta, 'w', encoding='latin-1') as configfile:
+            config.write(configfile)
+
+    except Exception as e:
+        PrintException()
+        SetVar(var, False)
+        raise e
 
 if module == "nuevoIni":
     # Modulo que crea un nuevo Ini

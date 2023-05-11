@@ -1,32 +1,36 @@
 # Control Ini
   
-Controle de arquivos .ini
+Este módulo permite criar, ler, modificar ou obter valores de um arquivo .ini  
 
-*Read this in other languages: [English](README.md), [Portugues](README.pr.md), [Español](README.es.md).*
+*Read this in other languages: [English](README.md), [Português](README.pr.md), [Español](README.es.md)*
 
 ## Como instalar este módulo
   
-__Baixe__ e __instale__ o conteúdo na pasta 'modules' no caminho do Rocketbot  
-
+Para instalar o módulo no Rocketbot Studio, pode ser feito de duas formas:
+1. Manual: __Baixe__ o arquivo .zip e descompacte-o na pasta módulos. O nome da pasta deve ser o mesmo do módulo e dentro dela devem ter os seguintes arquivos e pastas: \__init__.py, package.json, docs, example e libs. Se você tiver o aplicativo aberto, atualize seu navegador para poder usar o novo módulo.
+2. Automático: Ao entrar no Rocketbot Studio na margem direita você encontrará a seção **Addons**, selecione **Install Mods**, procure o módulo desejado e aperte instalar.  
 
 
 ## Overview
 
 
 1. Novo Ini  
-Cria um arquivo ini.
+Este comando cria um novo arquivo ini no caminho especificado.
 
 2. Ler Ini  
-Abre e lê o arquivo ini.
+Este comando abre e lê o arquivo ini do caminho especificado.
 
 3. Obter Dado  
-Obter o dado de acordo com a seção e enviá-lo para a variável.
+Este comando obtém os dados da seção e os armazena em uma variável Rocketbot.
 
-4. Editar Dado  
-Edita um dado e uma seção indicada.
+4. Obter todos os dados  
+Este comando obtém todos os dados da seção selecionada e os armazena em uma variável Rocketbot em formato de dicionário.
 
-5. Adicionar Dado  
-Adiciona um dado em uma seção indicada.  
+5. Editar Dado  
+Este comando permite modificar o dado do ini aberto.
+
+6. Adicionar Dado  
+Este comando adiciona um dado em uma seção indicada.  
 
 
 
